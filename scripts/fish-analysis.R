@@ -11,3 +11,7 @@ fish_data_cat = fish_data %>%
 #change category cut-off size
 fish_data_cat = fish_data %>%
   mutate(length_cat = ifelse(length > 300, "big", "small"))
+
+# remove rows that have scalelength less than 1 mm from fish_data_cat
+fish_data_cat = fish_data %>%
+  filter(scalelength > 1)
