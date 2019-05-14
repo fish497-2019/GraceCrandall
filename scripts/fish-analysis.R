@@ -18,4 +18,9 @@ fish_data_cat = fish_data %>%
 #fish_data_cat now has 4,029 rows!
 
 
+#### scatterplot
+library(ggplot2)
 
+#create scatterplot: x axis - length, y-axis scalelength
+ggplot(data = fish_data_cat) +
+  geom_point(mapping = aes(x=length, y=scalelength, color = lakeid))
