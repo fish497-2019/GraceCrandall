@@ -9,3 +9,4 @@
 #gene id column
 #e values
 #scores (second to last column)
+#one file is from pH 7.1, other is from 8.2
