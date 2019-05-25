@@ -1,15 +1,6 @@
 # Grace Crandall 
 ## FISH 497 - Spring 2019
 
-#### Notes/data: 
-Two blast outputs, taxids on last column
-
-http://gannet.fish.washington.edu/Atumefaciens/20190416_metagenomics_pgen_blastn/pH71.blastn.outfmt6
-
-http://gannet.fish.washington.edu/Atumefaciens/20190416_metagenomics_pgen_blastn/pH82.blastn.outfmt6
-
----
-
 This repository contains the data, scripts, and analyses related to identifying the proteins related to non-oyster cells in order to create a table of potential non-oyster organisms that can be found in the water that the oytsers are reared in.
 
 ## Repository contents:
