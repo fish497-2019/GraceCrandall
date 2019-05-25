@@ -8,3 +8,9 @@ Two blast outputs, taxids on last column
 http://gannet.fish.washington.edu/Atumefaciens/20190416_metagenomics_pgen_blastn/pH71.blastn.outfmt6
 
 http://gannet.fish.washington.edu/Atumefaciens/20190416_metagenomics_pgen_blastn/pH82.blastn.outfmt6
+
+---
+
+[GitHub #693](https://github.com/RobertsLab/resources/issues/693)           
+Protein FastA file of all samples combined into a single metagenome.
+http://gannet.fish.washington.edu/Atumefaciens/20190103_metagenomics_geo_metagenemark/20190103-mgm-proteins.fa 
