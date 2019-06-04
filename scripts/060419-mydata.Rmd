@@ -23,7 +23,7 @@ library(tidyr)
 pH71 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG3_pH71.blastx.outfmt6", sep = '\t', header = FALSE)
 pH82 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG1_pH82.blastx.outfmt6", sep = '\t', header = FALSE)
 ```
-## Add Column names (it's a blast output)
+## Add Column names (it's a blast output, last column in taxonomy genus_species info)
 ```{r}
 
 
