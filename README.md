@@ -6,7 +6,7 @@ This repository contains the data, scripts, and analyses related to identifying 
 ## Repository contents:
 ---
 ### [data](https://github.com/fish497-2019/GraceCrandall/tree/master/data)       
-- Contains deduced proteomes from .... 
+- Contains  
 
 ### [scripts](https://github.com/fish497-2019/GraceCrandall/tree/master/scripts)      
 - Contains R scripts from coursework and project analyses
