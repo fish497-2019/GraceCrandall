@@ -14,3 +14,12 @@ http://gannet.fish.washington.edu/Atumefaciens/20190416_metagenomics_pgen_blastn
 [GitHub #693](https://github.com/RobertsLab/resources/issues/693)           
 Protein FastA file of all samples combined into a single metagenome.
 http://gannet.fish.washington.edu/Atumefaciens/20190103_metagenomics_geo_metagenemark/20190103-mgm-proteins.fa 
+
+---
+06/04/2019
+
+https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/      
+Use files that end in `.outfmt6` (last column in files has tax info (genus species))       
+Sam's notebook entry for more info: [here](https://robertslab.github.io/sams-notebook/2019/05/16/Metagenomics-BLASTx-of-Individual-Water-Sample-MEGAHIT-Assemblies-on-Mox.html)
+
+
