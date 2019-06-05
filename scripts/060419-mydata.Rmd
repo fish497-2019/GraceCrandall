@@ -24,24 +24,32 @@ pH71 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metag
 pH82 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG1_pH82.blastx.outfmt6", sep = '\t', header = FALSE)
 ```
 ## Add Column names (it's a blast output, last column in taxonomy genus_species info)
-## Option 1
+```{r}
+colnames(pH71)
+cols <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "tax_ID")
+colnames(pH71) <- cols
+```
+
 ```{r}
 pH71 %>%
-  group_by(V14) %>%
+  group_by(tax_ID) %>%
   tally()
 ```
 
 ## Version from Sam (https://github.com/RobertsLab/resources/issues/698)
 ```{r}
 taxa_counts <- pH71 %>% 
-  group_by(pH71$V14) %>% 
+  group_by(tax_ID) %>% 
   summarise(count = n())
 ```
 
-## Make plots showing abundances... maybe cut down list to those that have 2 digits or more in counts
+## Make plots showing abundances... cut down to those that show up more than 1000 times
 ```{r}
-ggplot(data = pH71) + 
-  geom_bar(mapping = aes(x = V14, color = V14))
+smaller <- taxa_counts %>%
+  filter(taxa_counts$count > 1000)
 ```
 
+### create bar plot of 29 most abundant taxa and their counts
+```{r}
 
+```
