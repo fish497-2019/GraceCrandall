@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown Script for Working with taxonomic microbiome data
-This project will works towards identifying the organisms living in the water at hatcheries where oysters and other shellfish are reared. 
+This project will work towards identifying the organisms living in the water at hatcheries where oysters and other shellfish are reared. 
 
 ## Required packages
 ```{r}
@@ -24,12 +24,24 @@ pH71 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metag
 pH82 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG1_pH82.blastx.outfmt6", sep = '\t', header = FALSE)
 ```
 ## Add Column names (it's a blast output, last column in taxonomy genus_species info)
+## Option 1
 ```{r}
-
-
+pH71 %>%
+  group_by(V14) %>%
+  tally()
 ```
-## Figure out a way to get species be columns with row value as count
-### create issues to ask questions!
 
-## other options: evalue --> use spread to get the average evalues for each species, etc. focues on previous idea first though
+## Version from Sam (https://github.com/RobertsLab/resources/issues/698)
+```{r}
+taxa_counts <- pH71 %>% 
+  group_by(pH71$V14) %>% 
+  summarise(count = n())
+```
+
+## Make plots showing abundances... maybe cut down list to those that have 2 digits or more in counts
+```{r}
+ggplot(data = pH71) + 
+  geom_bar(mapping = aes(x = V14, color = V14))
+```
+
 
