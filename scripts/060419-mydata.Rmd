@@ -78,6 +78,9 @@ ggplot(data=smaller82, aes(x=tax_ID, y=count)) +
 ```
 
 ## Compare pH7.1 and pH8.2
-### make a table showing the organisms that are present in both pH7.1 and pH8.2
+### make a table showing the organisms that are present in both pH7.1 and pH8.2 (only from the lists that contain those with 1000+ occurrences)
+```{r, common top organisms between both pH groups with 1000+ occurrences}
+inner_join(smaller, smaller82, by = "tax_ID")
+```
 
 ### make a venn diagram comparing counts between two pH's 
