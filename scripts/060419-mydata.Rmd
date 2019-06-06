@@ -134,7 +134,9 @@ filter(shared4, abs_diff > 6000)
 uniq71 <- left_join(smaller, smaller82, by = "tax_ID")
 #3 unique in 7.1 
 
+```
 
+```{r, unique to pH 8.2}
 uniq82 <- left_join(smaller82, smaller, by = "tax_ID")
 #24 unique in 8.2
 filter(uniq82, count.y == 'NA')
