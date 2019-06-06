@@ -51,5 +51,24 @@ smaller <- taxa_counts %>%
 
 ### create bar plot of 29 most abundant taxa and their counts
 ```{r}
-
+ggplot(data = smaller) +
+  geom_bar(mapping = aes(x = tax_ID))
+```
+## Do the same for pH 8.2
+### Rename last column tax_ID
+```{r}
+colnames(pH82)
+cols <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "tax_ID")
+colnames(pH82) <- cols
+```
+### get the counts for the unique taxa IDs
+```{r}
+taxa_counts82 <- pH82 %>% 
+  group_by(tax_ID) %>% 
+  summarise(count = n())
+```
+### create smaller table of those that show up more than 1000 times
+```{r}
+smaller82 <- taxa_counts82 %>%
+  filter(taxa_counts82$count > 1000)
 ```
