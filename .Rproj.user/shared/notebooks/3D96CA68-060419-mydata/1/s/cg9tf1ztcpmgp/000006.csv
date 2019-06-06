@@ -1,0 +1,3 @@
+"0","smaller <- taxa_counts %>%"
+"0","  filter(taxa_counts$count > 1000)"
+"0","smaller"

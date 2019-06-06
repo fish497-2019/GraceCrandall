@@ -1,0 +1,1 @@
+"0","pH71 <- read.csv(""https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG3_pH71.blastx.outfmt6"", sep = '\t', header = FALSE)"

@@ -1,0 +1,2 @@
+"0","ggplot(data=smaller82, aes(x=tax_ID, y=count)) +"
+"0","  geom_bar(stat=""identity"")"

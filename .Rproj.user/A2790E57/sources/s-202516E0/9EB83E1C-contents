@@ -1,0 +1,143 @@
+---
+title: "06042019-project"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown Script for Working with taxonomic microbiome data
+This project will work towards identifying the organisms living in the water at hatcheries where oysters and other shellfish are reared. 
+
+## Required packages
+```{r, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+## Load in data from https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/ 
+### Use files with `outfmt6` 
+```{r}
+pH71 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG3_pH71.blastx.outfmt6", sep = '\t', header = FALSE)
+pH82 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG1_pH82.blastx.outfmt6", sep = '\t', header = FALSE)
+```
+
+## Add Column names (it's a blast output, last column in taxonomy genus_species info)
+```{r}
+colnames(pH71)
+cols <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "tax_ID")
+colnames(pH71) <- cols
+```
+
+## Version from Sam (https://github.com/RobertsLab/resources/issues/698)
+```{r, taxa counts for pH7.1}
+taxa_counts <- pH71 %>% 
+  group_by(tax_ID) %>% 
+  summarise(count = n())
+taxa_counts
+```
+
+## Make plots showing abundances... cut down to those that show up more than 1000 times
+```{r, pH7.1 taxa counts with at least 1000 occurences}
+smaller <- taxa_counts %>%
+  filter(taxa_counts$count > 1000)
+smaller
+```
+
+### create bar plot of 29 most abundant taxa and their counts (pH7.1)
+```{r, pH7.1 taxa counts 1000 times or more}
+ggplot(data=smaller, aes(x=tax_ID, y=count)) +
+  geom_bar(stat="identity")
+```
+
+## Do the same for pH 8.2
+### Rename last column tax_ID
+```{r}
+colnames(pH82)
+cols <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "tax_ID")
+colnames(pH82) <- cols
+```
+
+## get the counts for the unique taxa IDs
+```{r, pH8.2 taxa counts}
+taxa_counts82 <- pH82 %>% 
+  group_by(tax_ID) %>% 
+  summarise(count = n())
+taxa_counts82
+```
+
+## create smaller table of those that show up more than 1000 times
+```{r, pH8.2 taxa counts with 1000 or more occurrences}
+smaller82 <- taxa_counts82 %>%
+  filter(taxa_counts82$count > 1000)
+smaller82
+```
+
+## plot number of times the top 50 show up in pH8.2
+```{r, pH8.2 plot of taxa that occur 1000 or more times}
+ggplot(data=smaller82, aes(x=tax_ID, y=count)) +
+  geom_bar(stat="identity")
+```
+
+## Compare pH7.1 and pH8.2
+### make a table showing the organisms that are present in both pH7.1 and pH8.2 (only from the lists that contain those with 1000+ occurrences)
+```{r, common top organisms between both pH groups with 1000+ occurrences}
+shared <- inner_join(smaller, smaller82, by = "tax_ID")
+shared
+```
+
+### rename columns 
+```{r}
+cols2 <- c("tax_ID", "pH71", "pH82")
+colnames(shared) <- cols2
+
+```
+
+### gather the shared data so that the counts are all in one column, and the treatments are in another. count.x --> pH7.1, count.y --> pH8.2
+```{r}
+shared2 <- shared %>% 
+  gather(`pH71`, `pH82`, key = "pH", value = "counts")
+shared2
+```
+
+## create bar plots of shared organsims (26 shared organisms)
+```{r, shared highly abundance organisms in pH7.1 and pH8.2}
+ggplot(shared2, aes(fill = pH, y=counts, x=tax_ID)) + 
+    geom_bar(position="dodge", stat="identity")
+```
+
+## add column in shared of absolute values of differences between the abundances of the organisms
+```{r, absolute values column}
+shared3 <- mutate(shared, 
+  abs_diff = abs(shared$pH71 - shared$pH82))
+shared3
+```
+
+## create bar plot of absolute differences
+```{r, absolute differences between highly abundant organism counts in pH 7.1 and pH 8.2}
+ggplot(data=shared3, aes(x=tax_ID, y=abs_diff)) +
+  geom_bar(stat="identity")
+```
+
+## sort shared3 (shared highly abundant organisms) by absolute difference
+```{r}
+shared4 <- arrange(shared3, abs_diff, tax_ID, pH71, pH82)
+
+#filter the top two taxa by having a cut-off of 6000 difference
+filter(shared4, abs_diff > 6000)
+```
+
+## tables of unique organisms in pH 7.1 and pH 8.2
+```{r, unique to pH 7.1}
+uniq71 <- left_join(smaller, smaller82, by = "tax_ID")
+#3 unique in 7.1 
+filter(uniq71, count.y == "NA")
+```
+
+```{r, unique to pH 8.2}
+uniq82 <- left_join(smaller82, smaller, by = "tax_ID")
+#24 unique in 8.2
+filter(uniq82, count.y == 'NA')
+```

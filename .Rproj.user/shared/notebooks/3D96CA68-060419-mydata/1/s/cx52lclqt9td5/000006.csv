@@ -1,0 +1,4 @@
+"0","taxa_counts82 <- pH82 %>% "
+"0","  group_by(tax_ID) %>% "
+"0","  summarise(count = n())"
+"0","taxa_counts82"

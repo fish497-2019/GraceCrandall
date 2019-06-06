@@ -1,0 +1,3 @@
+"0","shared2 <- shared %>% "
+"0","  gather(`pH71`, `pH82`, key = ""pH"", value = ""counts"")"
+"0","shared2"

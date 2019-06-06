@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1559841030322.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BD2773DB",
+    "lastKnownWriteTime" : 1559840907,
+    "last_content_update" : 1559841030322,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B717AD56",
+        "caption" : "uniq82",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=uniq82&cache_key=B717AD56",
+        "displayedObservations" : 50,
+        "environment" : "",
+        "object" : "uniq82",
+        "preview" : 0,
+        "totalObservations" : 50,
+        "variables" : 3
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
