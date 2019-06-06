@@ -108,10 +108,34 @@ ggplot(shared2, aes(fill = pH, y=counts, x=tax_ID)) +
     geom_bar(position="dodge", stat="identity")
 ```
 
+## add column in shared of absolute values of differences between the abundances of the organisms
+```{r, absolute values column}
+shared3 <- mutate(shared, 
+  abs_diff = abs(shared$pH71 - shared$pH82))
+shared3
+```
+
+## create bar plot of absolute differences
+```{r, absolute differences between highly abundant organism counts in pH 7.1 and pH 8.2}
+ggplot(data=shared3, aes(x=tax_ID, y=abs_diff)) +
+  geom_bar(stat="identity")
+```
+
+## sort shared3 (shared highly abundant organisms) by absolute difference
+```{r}
+shared4 <- arrange(shared3, abs_diff, tax_ID, pH71, pH82)
+
+#filter the top two taxa by having a cut-off of 6000 difference
+filter(shared4, abs_diff > 6000)
+```
+
 ## tables of unique organisms in pH 7.1 and pH 8.2
 ```{r, unique to pH 7.1}
 uniq71 <- left_join(smaller, smaller82, by = "tax_ID")
 #3 unique in 7.1 
+
+
 uniq82 <- left_join(smaller82, smaller, by = "tax_ID")
 #24 unique in 8.2
+filter(uniq82, count.y == 'NA')
 ```
