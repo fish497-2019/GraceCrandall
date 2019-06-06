@@ -23,6 +23,7 @@ library(tidyr)
 pH71 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG3_pH71.blastx.outfmt6", sep = '\t', header = FALSE)
 pH82 <- read.csv("https://gannet.fish.washington.edu/Atumefaciens/20190516_metagenomics_pgen_blastx/MG1_pH82.blastx.outfmt6", sep = '\t', header = FALSE)
 ```
+
 ## Add Column names (it's a blast output, last column in taxonomy genus_species info)
 ```{r}
 colnames(pH71)
@@ -58,6 +59,7 @@ colnames(pH82)
 cols <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "tax_ID")
 colnames(pH82) <- cols
 ```
+
 ## get the counts for the unique taxa IDs
 ```{r, pH8.2 taxa counts}
 taxa_counts82 <- pH82 %>% 
@@ -65,12 +67,14 @@ taxa_counts82 <- pH82 %>%
   summarise(count = n())
 taxa_counts82
 ```
+
 ## create smaller table of those that show up more than 1000 times
 ```{r, pH8.2 taxa counts with 1000 or more occurrences}
 smaller82 <- taxa_counts82 %>%
   filter(taxa_counts82$count > 1000)
 smaller82
 ```
+
 ## plot number of times the top 50 show up in pH8.2
 ```{r, pH8.2 plot of taxa that occur 1000 or more times}
 ggplot(data=smaller82, aes(x=tax_ID, y=count)) +
@@ -83,6 +87,7 @@ ggplot(data=smaller82, aes(x=tax_ID, y=count)) +
 shared <- inner_join(smaller, smaller82, by = "tax_ID")
 shared
 ```
+
 ### rename columns 
 ```{r}
 cols2 <- c("tax_ID", "pH71", "pH82")
@@ -97,10 +102,16 @@ shared2 <- shared %>%
 shared2
 ```
 
-## create bar plots of shared organsims
+## create bar plots of shared organsims (26 shared organisms)
 ```{r, shared highly abundance organisms in pH7.1 and pH8.2}
 ggplot(shared2, aes(fill = pH, y=counts, x=tax_ID)) + 
     geom_bar(position="dodge", stat="identity")
 ```
 
-## table of unique organisms in pH 7.1 and pH 8.2
+## tables of unique organisms in pH 7.1 and pH 8.2
+```{r, unique to pH 7.1}
+uniq71 <- left_join(smaller, smaller82, by = "tax_ID")
+#3 unique in 7.1 
+uniq82 <- left_join(smaller82, smaller, by = "tax_ID")
+#24 unique in 8.2
+```
