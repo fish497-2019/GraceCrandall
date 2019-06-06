@@ -83,8 +83,24 @@ ggplot(data=smaller82, aes(x=tax_ID, y=count)) +
 shared <- inner_join(smaller, smaller82, by = "tax_ID")
 shared
 ```
-
-### make a grouped bar plot showing both short lists for pH 7.1 and pH 8.2 
+### rename columns 
 ```{r}
+cols2 <- c("tax_ID", "pH71", "pH82")
+colnames(shared) <- cols2
 
 ```
+
+### gather the shared data so that the counts are all in one column, and the treatments are in another. count.x --> pH7.1, count.y --> pH8.2
+```{r}
+shared2 <- shared %>% 
+  gather(`pH71`, `pH82`, key = "pH", value = "counts")
+shared2
+```
+
+## create bar plots of shared organsims
+```{r, shared highly abundance organisms in pH7.1 and pH8.2}
+ggplot(shared2, aes(fill = pH, y=counts, x=tax_ID)) + 
+    geom_bar(position="dodge", stat="identity")
+```
+
+## table of unique organisms in pH 7.1 and pH 8.2
