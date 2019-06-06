@@ -84,9 +84,7 @@ shared <- inner_join(smaller, smaller82, by = "tax_ID")
 shared
 ```
 
-### make a venn diagram comparing counts between two pH's 
+### make a grouped bar plot showing both short lists for pH 7.1 and pH 8.2 
 ```{r}
-library(gplots)
 
-
-
+```
